@@ -7,7 +7,7 @@ from datetime import datetime
 #Compare data from multiple websites and create one output file with cross-referenced data points
 #Gather string data from esac
 
-api = '7be72a293f9455cbf0f2099277ca32aa'
+api = ''
 
 def units():
     print("Please select your preferred units:")
