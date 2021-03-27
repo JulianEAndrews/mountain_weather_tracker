@@ -4,36 +4,48 @@ import pandas as pd
 import api
 
 #To-do List
-#Completed: Update function to take in any lat-lon.
 
-#In Progress: Update user input functionality to prevent errors or crashes.
-#In Progress: Create function to print important data (maybe daily hi/low, wind/wind direction, clouds, etc...) to .csv or .xls
+#In Progress, ongoing: Update user input functionality to prevent errors or crashes.
 
+#Expand csv functionality
 #Make compatible with rasppi (query at 'x' time, update frequency, etc...)
 #Compare data from multiple websites and create one output file with cross-referenced data points
 #Gather string data from esac
+
+#Completed: Update function to take in any lat-lon.
+#Completed: Create function to print important data (maybe daily hi/low, wind/wind direction, clouds, etc...) to .csv or .xls
+
 
 
 api = api.API_KEY
 
 def units():
     print('Please select your preferred units:')
-    units = str(input('Standard/kelvin (s), Metric (m), or Imperial (i): '))
-    if units == 's':
-        units = 'standard'
-    elif units == 'm':
-        units = 'metric'
-    elif units == 'i':
-        units = "imperial"
-    else:
-        units = 'imperial'
-    units_address = '&units=' + units
-    return units_address
+    while True:
+        try:
+            units = str(input('Standard/kelvin (s), Metric (m), or Imperial (i): ')).casefold()
+            if units == 's':
+                units = 'standard'
+            elif units == 'm':
+                units = 'metric'
+            elif units == 'i':
+                units = "imperial"
+            else:
+                units = 'imperial'
+            units_address = f'&units={units}'
+        except KeyboardInterrupt:
+            break
+        return units_address
 
 def city_weather():
-    city = str(input('City Name: '))
-    state = str(input('State Code: '))
-    country = str(input('Country Code: '))
+    while True:
+        try:
+            city = str(input('City Name: ')).casefold()
+            state = str(input('State Code: ')).casefold()
+            country = str(input('Country Code: ')).casefold()
+            break
+        except KeyboardInterrupt:
+            break
 
     web_url = 'http://api.openweathermap.org/data/2.5/weather?'
     city_url = f'q={city}'
@@ -43,18 +55,25 @@ def city_weather():
 
     units_url = units()
 
-
-
     url = web_url + city_url + state_url + country_url + units_url + api_url
 
     check_data(url)
-    #call_data(url)
 
 def lat_long_weather():
-    lat = str(input('Enter Latitude: '))
-    lon = str(input('Enter Longitude: '))
-    #lat = str(37.65)
-    #lon = str(-118.97)
+    while True:
+        try:
+            lat = float(input('Enter Latitude: '))
+            lat = str(lat)
+            lon = float(input('Enter Longitude: '))
+            lon = str(lon)
+            #lat = str(37.65)
+            #lon = str(-118.97)
+            break
+        except KeyboardInterrupt:
+            break
+        except:
+            pass
+
 
     web_url = 'http://api.openweathermap.org/data/2.5/weather?'
     lat_url = f'&lat={lat}'
@@ -133,17 +152,6 @@ def utc_to_date(json_data):
 
 #-----------------------------------------------Program UI-----------------------------------------------#
 
-#print("---Weather Forecast---")
-#while True:
-#    choice = str(input("Choose forecast location. Lat/Long (LL) or City, State, Country (CSC): " )).casefold()
-#    if choice == 'll':
-#        lat_long_weather()
-#        break
-#    elif choice == 'csc':
-#        city_weather()
-#        break
-#    elif choice == 'q':
-#        break
 
 def main():
     print("---Weather Forecast---")
