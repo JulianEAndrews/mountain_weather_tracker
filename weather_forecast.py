@@ -6,9 +6,10 @@ import api
 #To-do List
 
 #In Progress, ongoing: Update user input functionality to prevent errors or crashes.
-#In Progress: Build classes to house functions to call each different website.
+#In Progress: Build classes to house functions to call each different website. *See 'WindyLIB'
 
 #Compare data from multiple websites and create one output file with cross-referenced data points
+#Explore api response from multiple weather forecast websites for implementation
 #Expand csv functionality
 #Make compatible with rasppi (query at 'x' time, update frequency, etc...)
 #Gather string data from esac. Possibly too complicated. Need either more html experience or a way to scrape webpage data directly.
